@@ -1,116 +1,193 @@
 "use client"
-
-import React from "react"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
-import { ArrowRight, ChevronDown, ChevronUp, Info } from "lucide-react"
+import { ArrowRight, Info } from "lucide-react"
 import AnimatedSection from "@/components/animated-section"
 import { useRouter } from "next/navigation"
 import { useAnalytics } from "@/hooks/use-analytics"
 
 // Typy danych dla usług
-interface ServiceDetail {
-  name: string
-  price: string
-  description?: string
-}
-
-interface PricingService {
+interface PricingItem {
   id: string
-  name: string
-  details: ServiceDetail[]
+  serviceName: string
+  itemName: string
   description: string
+  price: string
   popular?: boolean
   new?: boolean
 }
 
-// Dane usług z cenami - zaktualizowane dla spójności
-const pricingServices: PricingService[] = [
+// Dane usług z cenami - przekształcone do formatu tabeli
+const pricingItems: PricingItem[] = [
   {
-    id: "diagnoza-korp",
-    name: "Diagnoza KORP",
-    description: "Kompleksowa ocena rozwoju psychomotorycznego dziecka",
+    id: "diagnoza-korp-pelna",
+    serviceName: "Diagnoza KORP",
+    itemName: "Diagnoza pełna",
+    description: "Kompleksowa ocena rozwoju psychomotorycznego dziecka obejmująca wszystkie sfery rozwojowe",
+    price: "450 zł",
     popular: true,
-    details: [
-      { name: "Diagnoza pełna", price: "450 zł", description: "Pełna diagnoza obejmująca wszystkie sfery rozwojowe" },
-      { name: "Konsultacja z rodzicami", price: "150 zł", description: "Omówienie wyników i zaleceń" },
-    ],
   },
   {
-    id: "trening-umiejetnosci-spolecznych",
-    name: "Trening Umiejętności Społecznych (TUS)",
-    description: "Zajęcia grupowe rozwijające kompetencje społeczne i emocjonalne",
-    details: [
-      { name: "Zajęcia grupowe (90 min, 4-6 osób)", price: "200 zł" },
-      { name: "Pakiet 5 zajęć", price: "900 zł", description: "Oszczędność 100 zł" },
-    ],
+    id: "diagnoza-korp-konsultacja",
+    serviceName: "Diagnoza KORP",
+    itemName: "Konsultacja z rodzicami",
+    description: "Omówienie wyników diagnozy i przedstawienie zaleceń terapeutycznych",
+    price: "150 zł",
   },
   {
-    id: "terapia-reki",
-    name: "Terapia Ręki",
-    description: "Usprawnianie małej motoryki i koordynacji wzrokowo-ruchowej",
+    id: "tus-grupowe",
+    serviceName: "Trening Umiejętności Społecznych",
+    itemName: "Zajęcia grupowe (90 min, 4-6 osób)",
+    description: "Zajęcia grupowe rozwijające kompetencje społeczne i emocjonalne dzieci",
+    price: "200 zł",
+  },
+  {
+    id: "tus-pakiet",
+    serviceName: "Trening Umiejętności Społecznych",
+    itemName: "Pakiet 5 zajęć",
+    description: "Pakiet zajęć grupowych TUS - oszczędność 100 zł w porównaniu do ceny pojedynczych zajęć",
+    price: "900 zł",
+  },
+  {
+    id: "terapia-reki-sesja",
+    serviceName: "Terapia Ręki",
+    itemName: "Sesja terapeutyczna (45 min)",
+    description: "Indywidualna terapia usprawniająca małą motorykę i koordynację wzrokowo-ruchową",
+    price: "150 zł",
     popular: true,
-    details: [
-      { name: "Sesja terapeutyczna (45 min)", price: "150 zł" },
-      { name: "Pakiet 5 sesji", price: "700 zł", description: "Oszczędność 50 zł" },
-      { name: "Pakiet 10 sesji", price: "1350 zł", description: "Oszczędność 150 zł" },
-    ],
   },
   {
-    id: "terapia-pedagogiczna",
-    name: "Terapia Pedagogiczna",
+    id: "terapia-reki-pakiet5",
+    serviceName: "Terapia Ręki",
+    itemName: "Pakiet 5 sesji",
+    description: "Pakiet 5 sesji terapii ręki - oszczędność 50 zł",
+    price: "700 zł",
+  },
+  {
+    id: "terapia-reki-pakiet10",
+    serviceName: "Terapia Ręki",
+    itemName: "Pakiet 10 sesji",
+    description: "Pakiet 10 sesji terapii ręki - oszczędność 150 zł",
+    price: "1350 zł",
+  },
+  {
+    id: "terapia-pedagogiczna-sesja",
+    serviceName: "Terapia Pedagogiczna",
+    itemName: "Sesja terapeutyczna (45 min)",
     description: "Wsparcie rozwoju poznawczego i przezwyciężanie trudności w nauce",
-    details: [
-      { name: "Sesja terapeutyczna (45 min)", price: "150 zł" },
-      { name: "Pakiet 5 sesji", price: "700 zł", description: "Oszczędność 50 zł" },
-      { name: "Pakiet 10 sesji", price: "1350 zł", description: "Oszczędność 150 zł" },
-    ],
+    price: "150 zł",
   },
   {
-    id: "indywidualna-stymulacja-sluchu-johansena",
-    name: "Trening Słuchowy Johansena",
-    description: "Terapia słuchowa wspomagająca rozwój mowy i koncentracji",
-    details: [
-      { name: "Diagnoza pełna", price: "500 zł" },
-      { name: "Diagnoza uproszczona", price: "350 zł", description: "Na podstawie obserwacji i wywiadu z rodzicem" },
-      {
-        name: "Przygotowanie indywidualnego programu",
-        price: "około 250 zł",
-        description:
-          "Na podstawie diagnozy w Instytucie Johansena przygotowana jest indywidualna płyta CD lub nagrania do pobrania online",
-      },
-      { name: "Diagnoza kontrolna (co 8-10 tyg.) - pełne badanie", price: "350 zł" },
-      {
-        name: "Diagnoza kontrolna uproszczona (co 8-10 tyg.)",
-        price: "300 zł",
-        description: "Na podstawie obserwacji i wywiadu z rodzicem",
-      },
-    ],
+    id: "terapia-pedagogiczna-pakiet5",
+    serviceName: "Terapia Pedagogiczna",
+    itemName: "Pakiet 5 sesji",
+    description: "Pakiet 5 sesji terapii pedagogicznej - oszczędność 50 zł",
+    price: "700 zł",
   },
   {
-    id: "trening-neuroflow",
-    name: "Trening Neuroflow",
-    description: "Innowacyjna metoda terapii dla dzieci z trudnościami w nauce",
+    id: "terapia-pedagogiczna-pakiet10",
+    serviceName: "Terapia Pedagogiczna",
+    itemName: "Pakiet 10 sesji",
+    description: "Pakiet 10 sesji terapii pedagogicznej - oszczędność 150 zł",
+    price: "1350 zł",
+  },
+  {
+    id: "johansen-diagnoza-pelna",
+    serviceName: "Trening Słuchowy Johansena",
+    itemName: "Diagnoza pełna",
+    description: "Kompleksowa diagnoza słuchowa przed rozpoczęciem treningu",
+    price: "500 zł",
+  },
+  {
+    id: "johansen-diagnoza-uproszczona",
+    serviceName: "Trening Słuchowy Johansena",
+    itemName: "Diagnoza uproszczona",
+    description: "Diagnoza na podstawie obserwacji i wywiadu z rodzicem",
+    price: "350 zł",
+  },
+  {
+    id: "johansen-program",
+    serviceName: "Trening Słuchowy Johansena",
+    itemName: "Przygotowanie indywidualnego programu",
+    description: "Indywidualna płyta CD lub nagrania do pobrania online przygotowane przez Instytut Johansena",
+    price: "około 250 zł",
+  },
+  {
+    id: "johansen-kontrolna-pelna",
+    serviceName: "Trening Słuchowy Johansena",
+    itemName: "Diagnoza kontrolna - pełne badanie",
+    description: "Kontrolna diagnoza po 8-10 tygodniach treningu - pełne badanie",
+    price: "350 zł",
+  },
+  {
+    id: "johansen-kontrolna-uproszczona",
+    serviceName: "Trening Słuchowy Johansena",
+    itemName: "Diagnoza kontrolna uproszczona",
+    description: "Kontrolna diagnoza na podstawie obserwacji i wywiadu z rodzicem",
+    price: "300 zł",
+  },
+  {
+    id: "neuroflow-diagnoza",
+    serviceName: "Trening Neuroflow",
+    itemName: "Pierwsza diagnoza wstępna",
+    description: "Wstępna diagnoza przed rozpoczęciem innowacyjnej terapii Neuroflow",
+    price: "500 zł",
     new: true,
-    details: [
-      { name: "Pierwsza diagnoza wstępna", price: "500 zł" },
-      { name: "Etap I (8-10 tygodni)", price: "470 zł" },
-      { name: "Etap II (8-10 tygodni)", price: "470 zł" },
-      { name: "Etap III (8-10 tygodni)", price: "470 zł" },
-      { name: "Diagnoza kontrolna", price: "300 zł" },
-    ],
   },
   {
-    id: "wczesna-nauka-czytania",
-    name: "Wczesna Nauka Czytania",
+    id: "neuroflow-etap1",
+    serviceName: "Trening Neuroflow",
+    itemName: "Etap I (8-10 tygodni)",
+    description: "Pierwszy etap treningu Neuroflow dla dzieci z trudnościami w nauce",
+    price: "470 zł",
+    new: true,
+  },
+  {
+    id: "neuroflow-etap2",
+    serviceName: "Trening Neuroflow",
+    itemName: "Etap II (8-10 tygodni)",
+    description: "Drugi etap treningu Neuroflow - kontynuacja terapii",
+    price: "470 zł",
+    new: true,
+  },
+  {
+    id: "neuroflow-etap3",
+    serviceName: "Trening Neuroflow",
+    itemName: "Etap III (8-10 tygodni)",
+    description: "Trzeci etap treningu Neuroflow - zaawansowana terapia",
+    price: "470 zł",
+    new: true,
+  },
+  {
+    id: "neuroflow-kontrolna",
+    serviceName: "Trening Neuroflow",
+    itemName: "Diagnoza kontrolna",
+    description: "Kontrolna diagnoza postępów w trakcie treningu Neuroflow",
+    price: "300 zł",
+    new: true,
+  },
+  {
+    id: "czytanie-sesja",
+    serviceName: "Wczesna Nauka Czytania",
+    itemName: "Sesja terapeutyczna (45 min)",
     description: "Zajęcia wspierające naukę czytania metodami dostosowanymi do potrzeb dziecka",
-    details: [
-      { name: "Sesja terapeutyczna (45 min)", price: "150 zł" },
-      { name: "Pakiet 5 sesji", price: "700 zł", description: "Oszczędność 50 zł" },
-      { name: "Pakiet 10 sesji", price: "1350 zł", description: "Oszczędność 150 zł" },
-    ],
+    price: "150 zł",
+  },
+  {
+    id: "czytanie-pakiet5",
+    serviceName: "Wczesna Nauka Czytania",
+    itemName: "Pakiet 5 sesji",
+    description: "Pakiet 5 sesji nauki czytania - oszczędność 50 zł",
+    price: "700 zł",
+  },
+  {
+    id: "czytanie-pakiet10",
+    serviceName: "Wczesna Nauka Czytania",
+    itemName: "Pakiet 10 sesji",
+    description: "Pakiet 10 sesji nauki czytania - oszczędność 150 zł",
+    price: "1350 zł",
   },
 ]
 
@@ -125,21 +202,18 @@ const filterCategories = [
 
 export default function PricingSection() {
   const [activeFilter, setActiveFilter] = useState("all")
-  const [expandedServices, setExpandedServices] = useState<string[]>([])
   const router = useRouter()
   const { trackEvent } = useAnalytics()
 
   // Filtrowanie usług
-  const filteredServices = pricingServices.filter((service) => {
+  const filteredItems = pricingItems.filter((item) => {
     if (activeFilter === "all") return true
-    if (activeFilter === "popular" && service.popular) return true
-    if (activeFilter === "new" && service.new) return true
-    if (
-      activeFilter === "diagnostic" &&
-      (service.id === "diagnoza-korp" || service.id === "indywidualna-stymulacja-sluchu-johansena")
-    )
+    if (activeFilter === "popular" && item.popular) return true
+    if (activeFilter === "new" && item.new) return true
+    if (activeFilter === "diagnostic" && (item.serviceName.includes("Diagnoza") || item.itemName.includes("Diagnoza")))
       return true
-    if (activeFilter === "therapy" && service.id !== "diagnoza-korp") return true
+    if (activeFilter === "therapy" && !item.serviceName.includes("Diagnoza") && !item.itemName.includes("Diagnoza"))
+      return true
     return false
   })
 
@@ -148,14 +222,17 @@ export default function PricingSection() {
     router.push("/rezerwacja")
   }
 
-  const toggleServiceExpand = (serviceId: string) => {
-    setExpandedServices((prev) =>
-      prev.includes(serviceId) ? prev.filter((id) => id !== serviceId) : [...prev, serviceId],
-    )
-  }
-
-  const isServiceExpanded = (serviceId: string) => {
-    return expandedServices.includes(serviceId)
+  const getServiceSlug = (serviceName: string) => {
+    const slugMap: { [key: string]: string } = {
+      "Diagnoza KORP": "diagnoza-korp",
+      "Trening Umiejętności Społecznych": "trening-umiejetnosci-spolecznych",
+      "Terapia Ręki": "terapia-reki",
+      "Terapia Pedagogiczna": "terapia-pedagogiczna",
+      "Trening Słuchowy Johansena": "indywidualna-stymulacja-sluchu-johansena",
+      "Trening Neuroflow": "trening-neuroflow",
+      "Wczesna Nauka Czytania": "wczesna-nauka-czytania",
+    }
+    return slugMap[serviceName] || serviceName.toLowerCase().replace(/\s+/g, "-")
   }
 
   return (
@@ -188,141 +265,117 @@ export default function PricingSection() {
 
         <AnimatedSection delay={200}>
           <div className="overflow-x-auto -mx-4 px-4">
-            <div className="min-w-[640px]">
-              <table className="w-full border-collapse mb-8">
+            <div className="min-w-[800px]">
+              <table className="w-full border-collapse bg-white shadow-lg rounded-lg overflow-hidden">
                 <thead>
-                  <tr className="bg-teal-50">
-                    <th className="px-4 py-3 text-left text-teal-800 font-semibold border-b border-teal-100">Usługa</th>
-                    <th className="px-4 py-3 text-right text-teal-800 font-semibold border-b border-teal-100">Akcje</th>
+                  <tr className="bg-teal-600 text-white">
+                    <th className="px-6 py-4 text-left font-semibold">Kategoria usługi</th>
+                    <th className="px-6 py-4 text-left font-semibold">Nazwa</th>
+                    <th className="px-6 py-4 text-left font-semibold">Opis</th>
+                    <th className="px-6 py-4 text-right font-semibold">Cena</th>
+                    <th className="px-6 py-4 text-center font-semibold">Akcje</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredServices.map((service, index) => (
-                    <React.Fragment key={service.id}>
-                      <tr
-                        className={cn(
-                          "border-b border-gray-200 hover:bg-gray-50 transition-colors",
-                          index % 2 === 0 ? "bg-white" : "bg-gray-50",
-                        )}
-                      >
-                        <td className="px-4 py-4">
-                          <div className="flex items-center">
-                            <div>
-                              <div className="font-medium text-gray-800 flex flex-wrap items-center gap-2">
-                                {service.name}
-                                {service.popular && (
-                                  <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
-                                    Popularne
-                                  </span>
-                                )}
-                                {service.new && (
-                                  <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                                    Nowość
-                                  </span>
-                                )}
-                              </div>
-                              <div className="text-sm text-gray-500 mt-1">{service.description}</div>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="px-4 py-4 text-right">
-                          <div className="flex justify-end space-x-2">
+                  {filteredItems.map((item, index) => (
+                    <tr
+                      key={item.id}
+                      className={cn(
+                        "border-b border-gray-200 hover:bg-gray-50 transition-colors",
+                        index % 2 === 0 ? "bg-white" : "bg-gray-50",
+                      )}
+                    >
+                      <td className="px-6 py-4">
+                        <div className="font-medium text-teal-700">{item.serviceName}</div>
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span className="font-medium text-gray-800">{item.itemName}</span>
+                          {item.popular && (
+                            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
+                              Popularne
+                            </span>
+                          )}
+                          {item.new && (
+                            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                              Nowość
+                            </span>
+                          )}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="text-sm text-gray-600 max-w-xs">{item.description}</div>
+                      </td>
+                      <td className="px-6 py-4 text-right">
+                        <div className="font-bold text-lg text-teal-600">{item.price}</div>
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="flex flex-col sm:flex-row justify-center gap-2">
+                          <Link href={`/uslugi/${getServiceSlug(item.serviceName)}`}>
                             <Button
                               variant="outline"
                               size="sm"
-                              onClick={() => toggleServiceExpand(service.id)}
-                              className="text-teal-600 border-teal-600 hover:bg-teal-50 min-h-[40px]"
+                              className="text-teal-600 border-teal-600 hover:bg-teal-50 w-full sm:w-auto bg-transparent"
                             >
-                              {isServiceExpanded(service.id) ? (
-                                <>
-                                  <ChevronUp className="h-4 w-4 mr-1" /> Zwiń
-                                </>
-                              ) : (
-                                <>
-                                  <ChevronDown className="h-4 w-4 mr-1" /> Cennik
-                                </>
-                              )}
+                              <Info className="h-4 w-4 mr-1" /> Szczegóły
                             </Button>
-                            <Link href={`/uslugi/${service.id}`}>
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                className="text-teal-600 border-teal-600 hover:bg-teal-50 min-h-[40px]"
-                              >
-                                <Info className="h-4 w-4 mr-1" /> Szczegóły
-                              </Button>
-                            </Link>
-                          </div>
-                        </td>
-                      </tr>
-                      {isServiceExpanded(service.id) && (
-                        <tr>
-                          <td colSpan={2} className="px-0 py-0 border-b border-gray-200">
-                            <div className="bg-gray-50 p-4">
-                              <div className="overflow-x-auto -mx-4 px-4">
-                                <div className="min-w-[500px]">
-                                  <table className="w-full border-collapse">
-                                    <thead>
-                                      <tr className="bg-gray-100">
-                                        <th className="px-4 py-2 text-left text-gray-700 font-medium">Nazwa</th>
-                                        <th className="px-4 py-2 text-right text-gray-700 font-medium">Cena</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      {service.details.map((detail, idx) => (
-                                        <tr key={idx} className={idx % 2 === 0 ? "bg-gray-50" : "bg-white"}>
-                                          <td className="px-4 py-3 border-t border-gray-200">
-                                            <div>
-                                              <div className="font-medium text-gray-800">{detail.name}</div>
-                                              {detail.description && (
-                                                <div className="text-sm text-gray-500 mt-1">{detail.description}</div>
-                                              )}
-                                            </div>
-                                          </td>
-                                          <td className="px-4 py-3 text-right border-t border-gray-200 font-semibold text-gray-800 whitespace-nowrap">
-                                            {detail.price}
-                                          </td>
-                                        </tr>
-                                      ))}
-                                    </tbody>
-                                  </table>
-                                </div>
-                              </div>
-                              <div className="mt-4 flex flex-col sm:flex-row justify-between items-center gap-4">
-                                <Link href={`/uslugi/${service.id}`}>
-                                  <Button variant="link" className="text-teal-600 p-0 h-auto font-medium">
-                                    Dowiedz się więcej o usłudze <ArrowRight className="h-4 w-4 ml-1" />
-                                  </Button>
-                                </Link>
-                                <Button
-                                  onClick={() => handleBookNow(service.id, service.name)}
-                                  className="bg-teal-600 hover:bg-teal-700 text-white w-full sm:w-auto"
-                                >
-                                  Zarezerwuj wizytę
-                                </Button>
-                              </div>
-                            </div>
-                          </td>
-                        </tr>
-                      )}
-                    </React.Fragment>
+                          </Link>
+                          <Button
+                            onClick={() => handleBookNow(item.id, item.serviceName)}
+                            size="sm"
+                            className="bg-teal-600 hover:bg-teal-700 text-white w-full sm:w-auto"
+                          >
+                            Rezerwuj
+                          </Button>
+                        </div>
+                      </td>
+                    </tr>
                   ))}
                 </tbody>
               </table>
             </div>
           </div>
+
+          {/* Wskaźnik przewijania dla urządzeń mobilnych */}
+          <div className="md:hidden text-center mt-4">
+            <p className="text-sm text-gray-500">← Przesuń palcem, aby zobaczyć więcej →</p>
+          </div>
         </AnimatedSection>
 
         <AnimatedSection delay={300}>
-          <div className="mt-8 text-center">
+          <div className="mt-12 text-center">
+            <div className="bg-teal-50 rounded-lg p-6 mb-8">
+              <h3 className="text-xl font-semibold text-teal-800 mb-4">Informacje dodatkowe</h3>
+              <div className="grid md:grid-cols-2 gap-4 text-sm text-teal-700">
+                <div>
+                  <strong>Pakiety:</strong> Wybierając pakiety sesji, oszczędzasz na pojedynczych wizytach
+                </div>
+                <div>
+                  <strong>Płatność:</strong> Możliwość płatności gotówką lub przelewem
+                </div>
+                <div>
+                  <strong>Anulowanie:</strong> Prosimy o informację o anulowaniu minimum 24h wcześniej
+                </div>
+                <div>
+                  <strong>Konsultacje:</strong> Pierwsza konsultacja obejmuje szczegółowy wywiad z rodzicami
+                </div>
+              </div>
+            </div>
+
             <p className="text-gray-600 mb-4">Potrzebujesz więcej informacji lub masz pytania dotyczące cennika?</p>
-            <Button
-              onClick={() => document.getElementById("kontakt")?.scrollIntoView({ behavior: "smooth" })}
-              variant="outline"
-              className="text-teal-600 border-teal-600 hover:bg-teal-50"
-            >
-              Skontaktuj się ze mną
-            </Button>
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <Button
+                onClick={() => document.getElementById("kontakt")?.scrollIntoView({ behavior: "smooth" })}
+                variant="outline"
+                className="text-teal-600 border-teal-600 hover:bg-teal-50"
+              >
+                Skontaktuj się ze mną
+              </Button>
+              <Button onClick={() => router.push("/rezerwacja")} className="bg-teal-600 hover:bg-teal-700 text-white">
+                <ArrowRight className="h-4 w-4 mr-2" />
+                Zarezerwuj wizytę
+              </Button>
+            </div>
           </div>
         </AnimatedSection>
       </div>

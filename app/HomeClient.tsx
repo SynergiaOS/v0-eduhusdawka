@@ -5,7 +5,7 @@ import AboutSection from "@/components/about-section"
 import TestimonialsSection from "@/components/testimonials-section"
 import BlogSection from "@/components/blog-section"
 import FaqSection from "@/components/faq-section"
-import BookingSection from "@/components/booking-section"
+import SimpleContactSection from "@/components/simple-contact-section"
 import ContactForm from "@/components/contact-form"
 import AnimatedSection from "@/components/animated-section"
 import OptimizedImage from "@/components/optimized-image"
@@ -22,7 +22,7 @@ import {
   Headphones,
   Zap,
   Book,
-  Mic,
+  ArrowRight,
 } from "lucide-react"
 
 export default function HomeClient() {
@@ -235,10 +235,10 @@ export default function HomeClient() {
                       <div className="text-center">
                         <Button
                           className="bg-teal-600 hover:bg-teal-700 text-white px-8 py-3"
-                          onClick={() => (window.location.href = "tel:+48531509008")}
+                          onClick={() => (window.location.href = "/diagnoza-korp")}
                         >
-                          <Phone className="h-4 w-4 mr-2" />
-                          Umów badanie KORP
+                          <ArrowRight className="h-4 w-4 mr-2" />
+                          Dowiedz się więcej
                         </Button>
                       </div>
                     </div>
@@ -326,10 +326,10 @@ export default function HomeClient() {
                       <div className="text-center">
                         <Button
                           className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3"
-                          onClick={() => (window.location.href = "tel:+48531509008")}
+                          onClick={() => (window.location.href = "/trening-umiejetnosci-spolecznych")}
                         >
-                          <Phone className="h-4 w-4 mr-2" />
-                          Zapisz na TUS
+                          <ArrowRight className="h-4 w-4 mr-2" />
+                          Dowiedz się więcej
                         </Button>
                       </div>
                     </div>
@@ -416,10 +416,10 @@ export default function HomeClient() {
                       <div className="text-center">
                         <Button
                           className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3"
-                          onClick={() => (window.location.href = "tel:+48531509008")}
+                          onClick={() => (window.location.href = "/terapia-reki")}
                         >
-                          <Phone className="h-4 w-4 mr-2" />
-                          Umów terapię ręki
+                          <ArrowRight className="h-4 w-4 mr-2" />
+                          Dowiedz się więcej
                         </Button>
                       </div>
                     </div>
@@ -500,10 +500,10 @@ export default function HomeClient() {
                       <div className="text-center">
                         <Button
                           className="bg-green-600 hover:bg-green-700 text-white px-8 py-3"
-                          onClick={() => (window.location.href = "tel:+48531509008")}
+                          onClick={() => (window.location.href = "/terapia-pedagogiczna")}
                         >
-                          <Phone className="h-4 w-4 mr-2" />
-                          Umów terapię pedagogiczną
+                          <ArrowRight className="h-4 w-4 mr-2" />
+                          Dowiedz się więcej
                         </Button>
                       </div>
                     </div>
@@ -588,10 +588,10 @@ export default function HomeClient() {
                     <div className="text-center">
                       <Button
                         className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3"
-                        onClick={() => (window.location.href = "tel:+48531509008")}
+                        onClick={() => (window.location.href = "/trening-sluchowy-johansena")}
                       >
-                        <Phone className="h-4 w-4 mr-2" />
-                        Umów diagnozę IAS
+                        <ArrowRight className="h-4 w-4 mr-2" />
+                        Dowiedz się więcej
                       </Button>
                     </div>
                   </div>
@@ -674,10 +674,10 @@ export default function HomeClient() {
                     <div className="text-center">
                       <Button
                         className="bg-cyan-600 hover:bg-cyan-700 text-white px-8 py-3"
-                        onClick={() => (window.location.href = "tel:+48531509008")}
+                        onClick={() => (window.location.href = "/trening-neuroflow")}
                       >
-                        <Phone className="h-4 w-4 mr-2" />
-                        Rozpocznij Neuroflow
+                        <ArrowRight className="h-4 w-4 mr-2" />
+                        Dowiedz się więcej
                       </Button>
                     </div>
                   </div>
@@ -756,92 +756,10 @@ export default function HomeClient() {
                       <div className="text-center">
                         <Button
                           className="bg-orange-600 hover:bg-orange-700 text-white px-8 py-3"
-                          onClick={() => (window.location.href = "tel:+48531509008")}
+                          onClick={() => (window.location.href = "/wczesna-nauka-czytania")}
                         >
-                          <Phone className="h-4 w-4 mr-2" />
-                          Zapisz na naukę czytania
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </AnimatedSection>
-
-            {/* Forbrain */}
-            <AnimatedSection delay={700}>
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div className="bg-gradient-to-r from-pink-600 to-pink-700 text-white p-6">
-                  <div className="flex items-center gap-2 md:gap-3">
-                    <Mic className="h-6 w-6 md:h-8 md:w-8 text-pink-100" />
-                    <div>
-                      <h3 className="text-xl md:text-2xl font-bold mb-2">Forbrain</h3>
-                      <p className="text-pink-100">Urządzenie do treningu słuchowo-głosowego</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="p-6">
-                  <div className="md:flex">
-                    <div className="md:w-1/3 mb-4 md:mb-0">
-                      <OptimizedImage
-                        src="/focused-mind-training.png"
-                        alt="Forbrain"
-                        width={300}
-                        height={200}
-                        className="w-full h-48 rounded-lg object-cover"
-                      />
-                    </div>
-                    <div className="md:w-2/3 md:pl-6">
-                      <p className="text-gray-600 mb-4">
-                        Forbrain to urządzenie poddane ocenie klinicznej, przeznaczone dla terapeutów i pedagogów
-                        pracujących z osobami z trudnościami w uczeniu się, przetwarzaniu słuchowym, komunikacji, uwadze
-                        lub zapamiętywaniu.
-                      </p>
-
-                      <div className="grid md:grid-cols-2 gap-6 mb-6">
-                        <div>
-                          <h5 className="font-semibold text-gray-800 mb-3">Zastosowanie:</h5>
-                          <ul className="space-y-2 text-sm text-gray-600">
-                            <li className="flex items-start">
-                              <span className="text-green-500 mr-2">✅</span>Trudności w uczeniu się
-                            </li>
-                            <li className="flex items-start">
-                              <span className="text-green-500 mr-2">✅</span>Problemy z przetwarzaniem słuchowym
-                            </li>
-                            <li className="flex items-start">
-                              <span className="text-green-500 mr-2">✅</span>Zaburzenia komunikacji
-                            </li>
-                            <li className="flex items-start">
-                              <span className="text-green-500 mr-2">✅</span>Problemy z uwagą i zapamiętywaniem
-                            </li>
-                          </ul>
-                        </div>
-                        <div>
-                          <h5 className="font-semibold text-gray-800 mb-3">Korzyści:</h5>
-                          <ul className="space-y-2 text-sm text-gray-600">
-                            <li className="flex items-start">
-                              <span className="text-blue-500 mr-2">🎯</span>Poprawa percepcji własnego głosu
-                            </li>
-                            <li className="flex items-start">
-                              <span className="text-blue-500 mr-2">🎯</span>Lepsze przetwarzanie informacji
-                            </li>
-                            <li className="flex items-start">
-                              <span className="text-blue-500 mr-2">🎯</span>Bezpieczne i łatwe w obsłudze
-                            </li>
-                            <li className="flex items-start">
-                              <span className="text-blue-500 mr-2">🎯</span>Możliwość użycia w domu
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-
-                      <div className="text-center">
-                        <Button
-                          className="bg-pink-600 hover:bg-pink-700 text-white px-8 py-3"
-                          onClick={() => (window.location.href = "tel:+48531509008")}
-                        >
-                          <Phone className="h-4 w-4 mr-2" />
-                          Dowiedz się więcej o Forbrain
+                          <ArrowRight className="h-4 w-4 mr-2" />
+                          Dowiedz się więcej
                         </Button>
                       </div>
                     </div>
@@ -853,7 +771,7 @@ export default function HomeClient() {
         </div>
       </section>
 
-      <BookingSection />
+      <SimpleContactSection />
       <TestimonialsSection />
       <BlogSection />
       <FaqSection />
@@ -863,7 +781,7 @@ export default function HomeClient() {
         <div className="container mx-auto px-4">
           <AnimatedSection>
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 font-heading heading-fancy">
-              Skontaktuj się ze mną
+              Formularz kontaktowy
             </h2>
           </AnimatedSection>
           <ContactForm />
