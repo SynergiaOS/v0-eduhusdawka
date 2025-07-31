@@ -1,19 +1,16 @@
 "use client"
-import Header from "@/components/header"
-import Footer from "@/components/footer"
-import AboutSection from "@/components/about-section"
+
+import AnimatedSection from "@/components/animated-section"
+import OptimizedImage from "@/components/optimized-image"
 import TestimonialsSection from "@/components/testimonials-section"
 import BlogSection from "@/components/blog-section"
 import FaqSection from "@/components/faq-section"
 import ContactForm from "@/components/contact-form"
-import AnimatedSection from "@/components/animated-section"
-import OptimizedImage from "@/components/optimized-image"
+import Header from "@/components/header"
+import Footer from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import {
-  Phone,
-  MessageCircle,
-  Star,
-  Award,
+  ArrowRight,
   Brain,
   Users,
   Hand,
@@ -21,7 +18,10 @@ import {
   Headphones,
   Zap,
   Book,
-  ArrowRight,
+  Phone,
+  MessageCircle,
+  Star,
+  Award,
   Mail,
   MapPin,
   Clock,
@@ -131,8 +131,6 @@ export default function HomeClient() {
           </AnimatedSection>
         </div>
       </section>
-
-      <AboutSection />
 
       {/* Services Section - Column Layout */}
       <section id="services" className="py-16 bg-gray-50">

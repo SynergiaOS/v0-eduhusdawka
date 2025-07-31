@@ -2,255 +2,164 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { Menu, X, ChevronDown, Phone, Mail } from "lucide-react"
+import { Menu, X, ChevronDown, Phone } from "lucide-react"
 import OptimizedImage from "@/components/optimized-image"
 
-const navigation = [
-  { name: "Strona główna", href: "/" },
-  { name: "O mnie", href: "/o-mnie" },
-  {
-    name: "Usługi",
-    href: "/uslugi",
-    children: [
-      { name: "Wszystkie usługi", href: "/uslugi" },
-      { name: "Diagnoza KORP", href: "/diagnoza-korp" },
-      { name: "Terapia ręki", href: "/terapia-reki" },
-      { name: "Trening Umiejętności Społecznych", href: "/trening-umiejetnosci-spolecznych" },
-      { name: "Terapia pedagogiczna", href: "/terapia-pedagogiczna" },
-      { name: "Trening słuchowy Johansena", href: "/trening-sluchowy-johansena" },
-      { name: "Trening Neuroflow", href: "/trening-neuroflow" },
-      { name: "Wczesna nauka czytania", href: "/wczesna-nauka-czytania" },
-    ],
-  },
-  { name: "Kontakt", href: "/kontakt" },
+const services = [
+  { name: "Wszystkie usługi", href: "/uslugi" },
+  { name: "Diagnoza KORP", href: "/diagnoza-korp" },
+  { name: "Terapia ręki", href: "/terapia-reki" },
+  { name: "Trening Umiejętności Społecznych", href: "/trening-umiejetnosci-spolecznych" },
+  { name: "Terapia pedagogiczna", href: "/terapia-pedagogiczna" },
+  { name: "Trening słuchowy Johansena", href: "/trening-sluchowy-johansena" },
+  { name: "Trening Neuroflow", href: "/trening-neuroflow" },
+  { name: "Wczesna nauka czytania", href: "/wczesna-nauka-czytania" },
 ]
 
 export default function Header() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [servicesOpen, setServicesOpen] = useState(false)
-  const pathname = usePathname()
-
-  const isActive = (href: string) => {
-    if (href === "/") {
-      return pathname === "/"
-    }
-    return pathname.startsWith(href)
-  }
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isServicesOpen, setIsServicesOpen] = useState(false)
 
   return (
-    <header className="bg-white shadow-sm sticky top-0 z-50">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
-        <div className="flex lg:flex-1">
-          <Link href="/" className="-m-1.5 p-1.5">
-            <span className="sr-only">EduHuśtawka</span>
+    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200">
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <Link href="/" className="flex items-center space-x-2">
             <OptimizedImage
               src="/images/logo-eduhustawka.png"
-              alt="EduHuśtawka Logo"
-              width={180}
-              height={60}
-              className="h-12 w-auto"
-              priority
+              alt="EduHustawka Logo"
+              width={40}
+              height={40}
+              className="w-10 h-10"
             />
+            <span className="text-xl font-bold text-gray-900">EduHustawka</span>
           </Link>
-        </div>
 
-        <div className="flex lg:hidden">
-          <button
-            type="button"
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
-            onClick={() => setMobileMenuOpen(true)}
-          >
-            <span className="sr-only">Otwórz menu główne</span>
-            <Menu className="h-6 w-6" aria-hidden="true" />
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-8">
+            <Link href="/" className="text-gray-700 hover:text-teal-600 transition-colors">
+              Strona główna
+            </Link>
+
+            <div className="relative group">
+              <button
+                className="flex items-center space-x-1 text-gray-700 hover:text-teal-600 transition-colors"
+                onMouseEnter={() => setIsServicesOpen(true)}
+                onMouseLeave={() => setIsServicesOpen(false)}
+              >
+                <span>Usługi</span>
+                <ChevronDown className={`h-4 w-4 transition-transform ${isServicesOpen ? "rotate-180" : ""}`} />
+              </button>
+
+              {isServicesOpen && (
+                <div
+                  className="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50"
+                  onMouseEnter={() => setIsServicesOpen(true)}
+                  onMouseLeave={() => setIsServicesOpen(false)}
+                >
+                  {services.map((service) => (
+                    <Link
+                      key={service.href}
+                      href={service.href}
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-600 transition-colors"
+                    >
+                      {service.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <Link href="/o-mnie" className="text-gray-700 hover:text-teal-600 transition-colors">
+              O mnie
+            </Link>
+
+            <Link href="/kontakt" className="text-gray-700 hover:text-teal-600 transition-colors">
+              Kontakt
+            </Link>
+          </nav>
+
+          {/* Desktop CTA */}
+          <div className="hidden md:flex items-center space-x-4">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => (window.location.href = "tel:+48531509008")}
+              className="border-teal-600 text-teal-600 hover:bg-teal-50"
+            >
+              <Phone className="h-4 w-4 mr-2" />
+              531 509 008
+            </Button>
+          </div>
+
+          {/* Mobile menu button */}
+          <button className="md:hidden p-2" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Toggle menu">
+            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
 
-        <div className="hidden lg:flex lg:gap-x-12">
-          {navigation.map((item) => (
-            <div key={item.name} className="relative">
-              {item.children ? (
-                <div
-                  className="relative"
-                  onMouseEnter={() => setServicesOpen(true)}
-                  onMouseLeave={() => setServicesOpen(false)}
-                >
-                  <button
-                    className={`flex items-center gap-x-1 text-sm font-semibold leading-6 transition-colors ${
-                      isActive(item.href) ? "text-teal-600" : "text-gray-900 hover:text-teal-600"
-                    }`}
-                  >
-                    {item.name}
-                    <ChevronDown
-                      className={`h-4 w-4 transition-transform ${servicesOpen ? "rotate-180" : ""}`}
-                      aria-hidden="true"
-                    />
-                  </button>
-
-                  {servicesOpen && (
-                    <div className="absolute left-1/2 z-10 mt-5 flex w-screen max-w-max -translate-x-1/2 px-4">
-                      <div className="w-screen max-w-md flex-auto overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-lg ring-1 ring-gray-900/5">
-                        <div className="p-4">
-                          {item.children.map((child) => (
-                            <div
-                              key={child.name}
-                              className="group relative flex gap-x-6 rounded-lg p-4 hover:bg-gray-50"
-                            >
-                              <div className="flex-auto">
-                                <Link
-                                  href={child.href}
-                                  className={`block font-semibold transition-colors ${
-                                    isActive(child.href) ? "text-teal-600" : "text-gray-900 group-hover:text-teal-600"
-                                  }`}
-                                >
-                                  {child.name}
-                                  <span className="absolute inset-0" />
-                                </Link>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <Link
-                  href={item.href}
-                  className={`text-sm font-semibold leading-6 transition-colors ${
-                    isActive(item.href) ? "text-teal-600" : "text-gray-900 hover:text-teal-600"
-                  }`}
-                >
-                  {item.name}
-                </Link>
-              )}
-            </div>
-          ))}
-        </div>
-
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-x-4">
-          <Button
-            variant="outline"
-            size="sm"
-            className="border-teal-600 text-teal-600 hover:bg-teal-50 bg-transparent"
-            onClick={() => (window.location.href = "tel:+48531509008")}
-          >
-            <Phone className="h-4 w-4 mr-2" />
-            531 509 008
-          </Button>
-          <Button
-            size="sm"
-            className="bg-teal-600 hover:bg-teal-700 text-white"
-            onClick={() => document.getElementById("kontakt")?.scrollIntoView({ behavior: "smooth" })}
-          >
-            <Mail className="h-4 w-4 mr-2" />
-            Kontakt
-          </Button>
-        </div>
-      </nav>
-
-      {/* Mobile menu */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden" role="dialog" aria-modal="true">
-          <div className="fixed inset-0 z-10"></div>
-          <div className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-            <div className="flex items-center justify-between">
-              <Link href="/" className="-m-1.5 p-1.5">
-                <span className="sr-only">EduHuśtawka</span>
-                <OptimizedImage
-                  src="/images/logo-eduhustawka.png"
-                  alt="EduHuśtawka Logo"
-                  width={180}
-                  height={60}
-                  className="h-8 w-auto"
-                />
-              </Link>
-              <button
-                type="button"
-                className="-m-2.5 rounded-md p-2.5 text-gray-700"
-                onClick={() => setMobileMenuOpen(false)}
+        {/* Mobile Navigation */}
+        {isMenuOpen && (
+          <div className="md:hidden py-4 border-t border-gray-200">
+            <nav className="flex flex-col space-y-4">
+              <Link
+                href="/"
+                className="text-gray-700 hover:text-teal-600 transition-colors"
+                onClick={() => setIsMenuOpen(false)}
               >
-                <span className="sr-only">Zamknij menu</span>
-                <X className="h-6 w-6" aria-hidden="true" />
-              </button>
-            </div>
-            <div className="mt-6 flow-root">
-              <div className="-my-6 divide-y divide-gray-500/10">
-                <div className="space-y-2 py-6">
-                  {navigation.map((item) => (
-                    <div key={item.name}>
-                      {item.children ? (
-                        <div>
-                          <button
-                            className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                            onClick={() => setServicesOpen(!servicesOpen)}
-                          >
-                            {item.name}
-                            <ChevronDown
-                              className={`h-5 w-5 flex-none transition-transform ${servicesOpen ? "rotate-180" : ""}`}
-                              aria-hidden="true"
-                            />
-                          </button>
-                          {servicesOpen && (
-                            <div className="mt-2 space-y-2">
-                              {item.children.map((child) => (
-                                <Link
-                                  key={child.name}
-                                  href={child.href}
-                                  className={`block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 transition-colors ${
-                                    isActive(child.href) ? "text-teal-600 bg-teal-50" : "text-gray-900 hover:bg-gray-50"
-                                  }`}
-                                  onClick={() => setMobileMenuOpen(false)}
-                                >
-                                  {child.name}
-                                </Link>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      ) : (
-                        <Link
-                          href={item.href}
-                          className={`-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 transition-colors ${
-                            isActive(item.href) ? "text-teal-600 bg-teal-50" : "text-gray-900 hover:bg-gray-50"
-                          }`}
-                          onClick={() => setMobileMenuOpen(false)}
-                        >
-                          {item.name}
-                        </Link>
-                      )}
-                    </div>
+                Strona główna
+              </Link>
+
+              <div className="space-y-2">
+                <div className="text-gray-700 font-medium">Usługi</div>
+                <div className="pl-4 space-y-2">
+                  {services.map((service) => (
+                    <Link
+                      key={service.href}
+                      href={service.href}
+                      className="block text-sm text-gray-600 hover:text-teal-600 transition-colors"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {service.name}
+                    </Link>
                   ))}
                 </div>
-                <div className="py-6 space-y-4">
-                  <Button
-                    variant="outline"
-                    className="w-full border-teal-600 text-teal-600 hover:bg-teal-50 bg-transparent"
-                    onClick={() => {
-                      window.location.href = "tel:+48531509008"
-                      setMobileMenuOpen(false)
-                    }}
-                  >
-                    <Phone className="h-4 w-4 mr-2" />
-                    Zadzwoń: 531 509 008
-                  </Button>
-                  <Button
-                    className="w-full bg-teal-600 hover:bg-teal-700 text-white"
-                    onClick={() => {
-                      document.getElementById("kontakt")?.scrollIntoView({ behavior: "smooth" })
-                      setMobileMenuOpen(false)
-                    }}
-                  >
-                    <Mail className="h-4 w-4 mr-2" />
-                    Formularz kontaktowy
-                  </Button>
-                </div>
               </div>
-            </div>
+
+              <Link
+                href="/o-mnie"
+                className="text-gray-700 hover:text-teal-600 transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                O mnie
+              </Link>
+
+              <Link
+                href="/kontakt"
+                className="text-gray-700 hover:text-teal-600 transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Kontakt
+              </Link>
+
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  window.location.href = "tel:+48531509008"
+                  setIsMenuOpen(false)
+                }}
+                className="border-teal-600 text-teal-600 hover:bg-teal-50 w-fit"
+              >
+                <Phone className="h-4 w-4 mr-2" />
+                531 509 008
+              </Button>
+            </nav>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </header>
   )
 }
