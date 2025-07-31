@@ -2,6 +2,52 @@ import type { BlogPost } from "@/types/blog"
 
 export const blogPosts: BlogPost[] = [
   {
+    id: "wczesna-nauka-czytania",
+    title: "Wczesna nauka czytania - od zabawy do płynności",
+    excerpt:
+      "Odkryj skuteczne i przyjazne metody wprowadzania dziecka w świat liter i słów. Zobacz, jak poprzez zabawę wspierać rozwój umiejętności czytania.",
+    content: `
+      <p>Wczesna nauka czytania to temat, który budzi wiele emocji wśród rodziców. Czy warto zaczynać wcześnie? Jak to robić, by nie zniechęcić dziecka? Kluczem jest podejście oparte na zabawie i naturalnej ciekawości.</p>
+      
+      <h3>Dlaczego wczesna nauka czytania jest korzystna?</h3>
+      
+      <ul>
+        <li><strong>Stymulacja rozwoju mózgu:</strong> Kontakt z literami i słowami w młodym wieku tworzy nowe połączenia neuronowe.</li>
+        <li><strong>Rozwój słownictwa:</strong> Dziecko poznaje nowe słowa i ich znaczenie, co wzbogaca jego język.</li>
+        <li><strong>Lepszy start w szkole:</strong> Dzieci, które miały wczesny kontakt z czytaniem, często łatwiej radzą sobie z nauką w szkole.</li>
+        <li><strong>Budowanie więzi:</strong> Wspólne czytanie i zabawy z literami to wspaniały sposób na spędzanie czasu z dzieckiem.</li>
+      </ul>
+      
+      <h3>Metody wczesnej nauki czytania</h3>
+      
+      <p>Istnieje wiele metod, a najlepsze efekty przynosi ich łączenie i dostosowanie do indywidualnych potrzeb dziecka:</p>
+      
+      <ul>
+        <li><strong>Metoda globalna (czytanie całościowe):</strong> Polega na pokazywaniu dziecku całych wyrazów i traktowaniu ich jako obrazków. Idealna na sam początek.</li>
+        <li><strong>Metoda sylabowa:</strong> Nauka czytania poprzez składanie sylab. Jest to metoda bardzo popularna i skuteczna w języku polskim.</li>
+        <li><strong>Zabawy z literami:</strong> Wykorzystanie klocków z literami, magnetycznych literek, pisanie palcem po piasku – każda forma zabawy jest dobra!</li>
+        <li><strong>Czytanie uczestniczące:</strong> Podczas czytania książeczek, proś dziecko o odnajdywanie znanych mu liter lub prostych słów.</li>
+      </ul>
+      
+      <h3>Jak zacząć? Praktyczne wskazówki</h3>
+      
+      <p>Pamiętaj, że nauka czytania ma być przygodą, a nie obowiązkiem.</p>
+      
+      <ul>
+        <li><strong>Otaczaj dziecko słowem pisanym:</strong> Podpisuj przedmioty w domu, oglądajcie razem książeczki, zwracajcie uwagę na napisy podczas spacerów.</li>
+        <li><strong>Bawcie się dźwiękami:</strong> Dzielcie słowa na głoski i sylaby w formie zabawy ("Co słyszysz na początku słowa 'dom'?").</li>
+        <li><strong>Bądź cierpliwy:</strong> Każde dziecko rozwija się w swoim tempie. Chwal za postępy, nie krytykuj za błędy.</li>
+        <li><strong>Wybieraj odpowiednie materiały:</strong> Sięgaj po książki z dużymi literami, wyraźnymi ilustracjami i prostą treścią.</li>
+      </ul>
+
+      <p>Wczesna nauka czytania to inwestycja w przyszłość intelektualną i emocjonalną dziecka. Prowadzona w atmosferze zabawy i akceptacji, może stać się pasją na całe życie.</p>
+    `,
+    date: "31.07.2025",
+    author: "Joanna Świrydowicz",
+    imageUrl: "/images/early-reading.png",
+    tags: ["nauka czytania", "rozwój dziecka", "edukacja", "wczesne wspomaganie"],
+  },
+  {
     id: "rozwoj-mowy-u-dzieci",
     title: "Rozwój mowy u dzieci - co powinno nas zaniepokoić?",
     excerpt:
