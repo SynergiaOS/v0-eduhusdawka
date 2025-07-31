@@ -132,19 +132,17 @@ export default function HomeClient() {
       <AboutSection />
 
       {/* Services Section - Column Layout */}
-      <section id="services" className="py-8 md:py-16 bg-gray-50">
+      <section id="services" className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <AnimatedSection>
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12 font-heading heading-fancy">
-              Moje Usługi
-            </h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 font-heading heading-fancy">Moje Usługi</h2>
           </AnimatedSection>
 
-          <div className="max-w-6xl mx-auto space-y-8 md:space-y-16">
+          <div className="max-w-6xl mx-auto space-y-16">
             {/* KORP - Karty Oceny Rozwoju Psychoruchowego */}
             <AnimatedSection>
               <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div className="bg-gradient-to-r from-teal-600 to-teal-700 text-white p-4 md:p-6">
+                <div className="bg-gradient-to-r from-teal-600 to-teal-700 text-white p-6">
                   <div className="flex items-center gap-2 md:gap-3">
                     <Brain className="h-6 w-6 md:h-8 md:w-8 text-teal-100" />
                     <div>
@@ -155,7 +153,7 @@ export default function HomeClient() {
                     </div>
                   </div>
                 </div>
-                <div className="p-4 md:p-6">
+                <div className="p-6">
                   <div className="md:flex">
                     <div className="md:w-1/3 mb-4 md:mb-0">
                       <OptimizedImage
@@ -167,7 +165,7 @@ export default function HomeClient() {
                       />
                     </div>
                     <div className="md:w-2/3 md:pl-6">
-                      <div className="mb-4 md:mb-6">
+                      <div className="mb-6">
                         <h4 className="text-xl font-semibold text-teal-700 mb-3">
                           Sprawdź rozwój swojego dziecka z testem KORP!
                         </h4>
@@ -178,7 +176,7 @@ export default function HomeClient() {
                         </p>
                       </div>
 
-                      <div className="grid md:grid-cols-2 gap-4 md:gap-6 mb-4 md:mb-6">
+                      <div className="grid md:grid-cols-2 gap-6 mb-6">
                         <div>
                           <h5 className="font-semibold text-gray-800 mb-3">Czym jest KORP?</h5>
                           <p className="text-gray-600 mb-4">
@@ -252,7 +250,7 @@ export default function HomeClient() {
             {/* Trening Umiejętności Społecznych */}
             <AnimatedSection delay={100}>
               <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-4 md:p-6">
+                <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-6">
                   <div className="flex items-center gap-2 md:gap-3">
                     <Users className="h-6 w-6 md:h-8 md:w-8 text-blue-100" />
                     <div>
@@ -261,7 +259,7 @@ export default function HomeClient() {
                     </div>
                   </div>
                 </div>
-                <div className="p-4 md:p-6">
+                <div className="p-6">
                   <div className="md:flex">
                     <div className="md:w-1/3 mb-4 md:mb-0">
                       <OptimizedImage
@@ -278,7 +276,7 @@ export default function HomeClient() {
                         które mają trudności w interakcjach społecznych.
                       </p>
 
-                      <div className="grid md:grid-cols-2 gap-4 md:gap-6 mb-4 md:mb-6">
+                      <div className="grid md:grid-cols-2 gap-6 mb-6">
                         <div>
                           <h5 className="font-semibold text-gray-800 mb-3">Zajęcia pomagają w:</h5>
                           <ul className="space-y-2 text-sm text-gray-600">
@@ -318,7 +316,7 @@ export default function HomeClient() {
                         </div>
                       </div>
 
-                      <div className="bg-blue-50 p-3 md:p-4 rounded-lg mb-4">
+                      <div className="bg-blue-50 p-4 rounded-lg mb-4">
                         <p className="text-sm text-blue-800">
                           <span className="font-semibold">👨‍👩‍👧‍👦 Grupy:</span> Kameralne, do 8 osób, dobrane na
                           podstawie indywidualnej konsultacji.
@@ -343,7 +341,7 @@ export default function HomeClient() {
             {/* Terapia ręki */}
             <AnimatedSection delay={200}>
               <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div className="bg-gradient-to-r from-purple-600 to-purple-700 text-white p-4 md:p-6">
+                <div className="bg-gradient-to-r from-purple-600 to-purple-700 text-white p-6">
                   <div className="flex items-center gap-2 md:gap-3">
                     <Hand className="h-6 w-6 md:h-8 md:w-8 text-purple-100" />
                     <div>
@@ -355,7 +353,7 @@ export default function HomeClient() {
                     </div>
                   </div>
                 </div>
-                <div className="p-4 md:p-6">
+                <div className="p-6">
                   <div className="md:flex">
                     <div className="md:w-1/3 mb-4 md:mb-0">
                       <OptimizedImage
@@ -367,7 +365,7 @@ export default function HomeClient() {
                       />
                     </div>
                     <div className="md:w-2/3 md:pl-6">
-                      <div className="bg-yellow-50 p-3 md:p-4 rounded-lg mb-4">
+                      <div className="bg-yellow-50 p-4 rounded-lg mb-4">
                         <p className="text-yellow-800 font-semibold">
                           Bez umiejętności grafomotorycznych dziecku trudniej jest… mówić!
                         </p>
@@ -376,7 +374,7 @@ export default function HomeClient() {
                         </p>
                       </div>
 
-                      <div className="grid md:grid-cols-2 gap-4 md:gap-6 mb-4 md:mb-6">
+                      <div className="grid md:grid-cols-2 gap-6 mb-6">
                         <div>
                           <h5 className="font-semibold text-gray-800 mb-3">Dla kogo jest terapia ręki?</h5>
                           <p className="text-gray-600 mb-3">Rodzicu, jeśli Twoje dziecko:</p>
@@ -433,7 +431,7 @@ export default function HomeClient() {
             {/* Terapia pedagogiczna */}
             <AnimatedSection delay={300}>
               <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div className="bg-gradient-to-r from-green-600 to-green-700 text-white p-4 md:p-6">
+                <div className="bg-gradient-to-r from-green-600 to-green-700 text-white p-6">
                   <div className="flex items-center gap-2 md:gap-3">
                     <BookOpen className="h-6 w-6 md:h-8 md:w-8 text-green-100" />
                     <div>
@@ -442,7 +440,7 @@ export default function HomeClient() {
                     </div>
                   </div>
                 </div>
-                <div className="p-4 md:p-6">
+                <div className="p-6">
                   <div className="md:flex">
                     <div className="md:w-1/3 mb-4 md:mb-0">
                       <OptimizedImage
@@ -460,7 +458,7 @@ export default function HomeClient() {
                         szkolnych.
                       </p>
 
-                      <div className="grid md:grid-cols-2 gap-4 md:gap-6 mb-4 md:mb-6">
+                      <div className="grid md:grid-cols-2 gap-6 mb-6">
                         <div>
                           <h5 className="font-semibold text-gray-800 mb-3">Dla kogo jest terapia?</h5>
                           <ul className="space-y-2 text-sm text-gray-600">
@@ -517,7 +515,7 @@ export default function HomeClient() {
             {/* Indywidualna Stymulacja Słuchu IAS */}
             <AnimatedSection delay={400}>
               <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div className="bg-gradient-to-r from-indigo-600 to-indigo-700 text-white p-4 md:p-6">
+                <div className="bg-gradient-to-r from-indigo-600 to-indigo-700 text-white p-6">
                   <div className="flex items-center gap-2 md:gap-3">
                     <Headphones className="h-6 w-6 md:h-8 md:w-8 text-indigo-100" />
                     <div>
@@ -528,8 +526,8 @@ export default function HomeClient() {
                     </div>
                   </div>
                 </div>
-                <div className="p-4 md:p-6">
-                  <div className="mb-4 md:mb-6">
+                <div className="p-6">
+                  <div className="mb-6">
                     <div className="aspect-video mb-4">
                       <iframe
                         width="100%"
@@ -542,7 +540,7 @@ export default function HomeClient() {
                         className="rounded-lg"
                       ></iframe>
                     </div>
-                    <div className="grid md:grid-cols-2 gap-4 md:gap-6 mb-4 md:mb-6">
+                    <div className="grid md:grid-cols-2 gap-6 mb-6">
                       <div>
                         <h5 className="font-semibold text-gray-800 mb-3">Czym jest metoda IAS?</h5>
                         <p className="text-gray-600 mb-3">
@@ -580,7 +578,7 @@ export default function HomeClient() {
                       </div>
                     </div>
 
-                    <div className="bg-indigo-50 p-3 md:p-4 rounded-lg mb-4">
+                    <div className="bg-indigo-50 p-4 rounded-lg mb-4">
                       <p className="text-indigo-800 text-sm">
                         <span className="font-semibold">🏠 Zalety:</span> Możliwość przeprowadzania w domu, łączenie z
                         innymi terapiami, komfortowa atmosfera, rozłożone w czasie koszty.
@@ -604,7 +602,7 @@ export default function HomeClient() {
             {/* Aktywny Trening Słuchowy NEUROFLOW */}
             <AnimatedSection delay={500}>
               <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div className="bg-gradient-to-r from-cyan-600 to-cyan-700 text-white p-4 md:p-6">
+                <div className="bg-gradient-to-r from-cyan-600 to-cyan-700 text-white p-6">
                   <div className="flex items-center gap-2 md:gap-3">
                     <Zap className="h-6 w-6 md:h-8 md:w-8 text-cyan-100" />
                     <div>
@@ -615,8 +613,8 @@ export default function HomeClient() {
                     </div>
                   </div>
                 </div>
-                <div className="p-4 md:p-6">
-                  <div className="mb-4 md:mb-6">
+                <div className="p-6">
+                  <div className="mb-6">
                     <div className="aspect-video mb-4">
                       <iframe
                         width="100%"
@@ -629,7 +627,7 @@ export default function HomeClient() {
                         className="rounded-lg"
                       ></iframe>
                     </div>
-                    <div className="grid md:grid-cols-2 gap-4 md:gap-6 mb-4 md:mb-6">
+                    <div className="grid md:grid-cols-2 gap-6 mb-6">
                       <div>
                         <h5 className="font-semibold text-gray-800 mb-3">Dla kogo jest Neuroflow?</h5>
                         <ul className="space-y-2 text-sm text-gray-600">
@@ -666,7 +664,7 @@ export default function HomeClient() {
                       </div>
                     </div>
 
-                    <div className="bg-cyan-50 p-3 md:p-4 rounded-lg mb-4">
+                    <div className="bg-cyan-50 p-4 rounded-lg mb-4">
                       <p className="text-cyan-800 text-sm">
                         <span className="font-semibold">💻 Terapia online:</span> 3 razy w tygodniu, 20-25 minut,
                         program trwa ok. 8 miesięcy.
@@ -690,7 +688,7 @@ export default function HomeClient() {
             {/* Wczesna Nauka Czytania */}
             <AnimatedSection delay={600}>
               <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div className="bg-gradient-to-r from-orange-600 to-orange-700 text-white p-4 md:p-6">
+                <div className="bg-gradient-to-r from-orange-600 to-orange-700 text-white p-6">
                   <div className="flex items-center gap-2 md:gap-3">
                     <Book className="h-6 w-6 md:h-8 md:w-8 text-orange-100" />
                     <div>
@@ -699,7 +697,7 @@ export default function HomeClient() {
                     </div>
                   </div>
                 </div>
-                <div className="p-4 md:p-6">
+                <div className="p-6">
                   <div className="md:flex">
                     <div className="md:w-1/3 mb-4 md:mb-0">
                       <OptimizedImage
@@ -717,7 +715,7 @@ export default function HomeClient() {
                         czytania.
                       </p>
 
-                      <div className="grid md:grid-cols-2 gap-4 md:gap-6 mb-4 md:mb-6">
+                      <div className="grid md:grid-cols-2 gap-6 mb-6">
                         <div>
                           <h5 className="font-semibold text-gray-800 mb-3">Dla kogo?</h5>
                           <ul className="space-y-2 text-sm text-gray-600">
@@ -773,7 +771,7 @@ export default function HomeClient() {
             {/* Forbrain */}
             <AnimatedSection delay={700}>
               <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div className="bg-gradient-to-r from-pink-600 to-pink-700 text-white p-4 md:p-6">
+                <div className="bg-gradient-to-r from-pink-600 to-pink-700 text-white p-6">
                   <div className="flex items-center gap-2 md:gap-3">
                     <Mic className="h-6 w-6 md:h-8 md:w-8 text-pink-100" />
                     <div>
@@ -782,7 +780,7 @@ export default function HomeClient() {
                     </div>
                   </div>
                 </div>
-                <div className="p-4 md:p-6">
+                <div className="p-6">
                   <div className="md:flex">
                     <div className="md:w-1/3 mb-4 md:mb-0">
                       <OptimizedImage
@@ -800,7 +798,7 @@ export default function HomeClient() {
                         lub zapamiętywaniu.
                       </p>
 
-                      <div className="grid md:grid-cols-2 gap-4 md:gap-6 mb-4 md:mb-6">
+                      <div className="grid md:grid-cols-2 gap-6 mb-6">
                         <div>
                           <h5 className="font-semibold text-gray-800 mb-3">Zastosowanie:</h5>
                           <ul className="space-y-2 text-sm text-gray-600">
@@ -861,10 +859,10 @@ export default function HomeClient() {
       <FaqSection />
 
       {/* Contact Section */}
-      <section id="kontakt" className="py-8 md:py-16 bg-white">
+      <section id="kontakt" className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <AnimatedSection>
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12 font-heading heading-fancy">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 font-heading heading-fancy">
               Skontaktuj się ze mną
             </h2>
           </AnimatedSection>

@@ -196,6 +196,22 @@
   @apply transform scale-x-100 origin-bottom-left;
 }
 
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion) {
+  .animate-fade-in,
+  .animate-fade-in-delay,
+  .animate-fade-in-delay-2,
+  .animate-float,
+  .animate-float-slow,
+  .animate-pulse-subtle,
+  .hover-lift:hover,
+  .hover-scale:hover {
+    animation: none;
+    transform: none;
+    transition: none;
+  }
+}
+
 /* Mobile menu animations */
 @keyframes fadeInUp {
   from {
@@ -210,72 +226,6 @@
 
 .animate-fade-in-up {
   animation: fadeInUp 0.5s ease forwards;
-}
-
-/* Burger menu animation */
-@keyframes burgerToX {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(45deg);
-  }
-}
-
-@keyframes xToBurger {
-  0% {
-    transform: rotate(45deg);
-  }
-  100% {
-    transform: rotate(0deg);
-  }
-}
-
-/* Mobile menu slide animations */
-@keyframes slideInRight {
-  from {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-@keyframes slideOutRight {
-  from {
-    transform: translateX(0);
-    opacity: 1;
-  }
-  to {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-}
-
-.slide-in-right {
-  animation: slideInRight 0.3s ease-out forwards;
-}
-
-.slide-out-right {
-  animation: slideOutRight 0.3s ease-in forwards;
-}
-
-/* Staggered animation for menu items */
-@keyframes staggerFadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.stagger-animation {
-  animation: staggerFadeInUp 0.4s ease-out forwards;
 }
 
 /* Add staggered delay utility classes */
@@ -337,19 +287,8 @@
 
 /* Respect user's motion preferences */
 @media (prefers-reduced-motion) {
-  .animate-fade-in,
-  .animate-fade-in-delay,
-  .animate-fade-in-delay-2,
-  .animate-float,
-  .animate-float-slow,
-  .animate-pulse-subtle,
-  .hover-lift:hover,
-  .hover-scale:hover,
   .animate-fade-in-up,
-  .menu-item-hover::after,
-  .slide-in-right,
-  .slide-out-right,
-  .stagger-animation {
+  .menu-item-hover::after {
     animation: none;
     transition: none;
     transform: none;
