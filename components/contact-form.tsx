@@ -68,8 +68,8 @@ export default function ContactForm() {
               </div>
 
               <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <Mail className="h-6 w-6 text-blue-600" />
+                <div className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Mail className="h-6 w-6 text-teal-600" />
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-800 mb-1">Email</h4>
@@ -79,8 +79,8 @@ export default function ContactForm() {
               </div>
 
               <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <MapPin className="h-6 w-6 text-green-600" />
+                <div className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <MapPin className="h-6 w-6 text-teal-600" />
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-800 mb-1">Adres</h4>
@@ -90,8 +90,8 @@ export default function ContactForm() {
               </div>
 
               <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <Clock className="h-6 w-6 text-purple-600" />
+                <div className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Clock className="h-6 w-6 text-teal-600" />
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-800 mb-1">Godziny pracy</h4>
@@ -101,7 +101,7 @@ export default function ContactForm() {
               </div>
             </div>
 
-            <div className="mt-8 p-6 bg-teal-50 rounded-lg">
+            <div className="mt-8 p-6 text-teal-50 rounded-lg">
               <h4 className="font-semibold text-teal-800 mb-2">Szybki kontakt</h4>
               <p className="text-teal-700 text-sm mb-4">Potrzebujesz pilnej konsultacji? Zadzwoń bezpośrednio!</p>
               <Button
