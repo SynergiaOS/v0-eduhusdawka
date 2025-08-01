@@ -42,6 +42,3 @@ export function MapLoading({ className }: MapLoadingProps) {
     </div>
   )
 }
-
-// Default export
-export default LoadingSpinner
